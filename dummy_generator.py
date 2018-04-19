@@ -10,7 +10,8 @@ Usage:
                   [--encoding=ENCODING] FILE OUTPUT
   dummy_generator [options] FILE OUTPUT
   dummy_generator --combinations [--delimiter=DELIMITER]
-                     [--newline=NEWLINE] [--quotechar=QUOTECHAR] FILE
+                     [--newline=NEWLINE] [--quotechar=QUOTECHAR]
+                     [--encoding=ENCODING] FILE
   dummy_generator --combinations [options] FILE
   dummy_generator (-h | --help)
   dummy_generator --version
