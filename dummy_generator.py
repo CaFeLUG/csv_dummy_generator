@@ -6,7 +6,8 @@ Dummy csv generator.
 
 Usage:
   dummy_generator [--quantity=QUANTITY] [--delimiter=DELIMITER]
-                     [--newline=NEWLINE] [--quotechar=QUOTECHAR] FILE OUTPUT
+                  [--newline=NEWLINE] [--quotechar=QUOTECHAR]
+                  [--encoding=ENCODING] FILE OUTPUT
   dummy_generator [options] FILE OUTPUT
   dummy_generator --combinations [--delimiter=DELIMITER]
                      [--newline=NEWLINE] [--quotechar=QUOTECHAR] FILE
@@ -25,6 +26,7 @@ Options:
   -q QUANTITY --quantity=QUANTITY        Rows quantity [default: 1000000000].
   -d DELIMITER --delimiter=DELIMITER     Csv delimiter [default: ,].
   -n NEWLINE --newline=NEWLINE           Csv newline char [default: ].
+  -e ENCODING --encoding=ENCODING        Csv encoding [default: utf-8].
   --quotechar=QUOTECHAR                  Csv quotechar [default: "].
 """
 from docopt import docopt
@@ -38,13 +40,14 @@ if __name__ == '__main__':
     NEWLINE = ARGUMENTS['--newline']
     QUANTITY = ARGUMENTS['--quantity']
     QUOTECHAR = ARGUMENTS['--quotechar']
+    ENCODING = ARGUMENTS['--encoding']
     FILE = ARGUMENTS['FILE']
     OUTPUT = ARGUMENTS['OUTPUT']
     if COMBINATIONS:
         COMBINATIONS_QUANTITY = get_combinations(
-            FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR)
+            FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR, ENCODING)
         print(COMBINATIONS_QUANTITY)
     else:
         HEADER, CSV = generate_csv(
-            FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR)
-        write_csv(OUTPUT, DELIMITER, NEWLINE, QUOTECHAR, HEADER, CSV)
+            FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR, ENCODING)
+        write_csv(OUTPUT, DELIMITER, NEWLINE, QUOTECHAR, ENCODING, HEADER, CSV)
