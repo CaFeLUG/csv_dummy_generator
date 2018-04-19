@@ -65,5 +65,6 @@ def email_generator(row):
         lastname=lastname,
         domain=get_random_email_domain()
     )
-    mail_unaccent = unidecode.unidecode(mail.lower())
+    mail_without_simbols = mail.lower().replace(" ", "")
+    mail_unaccent = unidecode.unidecode(mail_without_simbols)
     return mail_unaccent
