@@ -30,17 +30,18 @@ def generate_csv(filename, delimiter, newline, quantity, quotechar):
     header, rows = parse_csv(filename, delimiter, quotechar, newline)
     all_combinations = get_n_random_combinations(rows, quantity)
     final_data = clean_rows(all_combinations, rows)
-    _, new_rows = add_new_column(
+    header, rows = add_new_column(
         header, final_data, 'email', email_generator)
-    return new_rows
+    return header, rows
 
 
-def write_csv(outputfile, delimiter, newline, quotechar, rows):
+def write_csv(outputfile, delimiter, newline, quotechar, header, rows):
     """
         Write csv rows in a file
     """
     with open(outputfile, 'w', newline=newline) as csvfile:
         writer = csv.writer(csvfile, delimiter=delimiter,
                             quotechar=quotechar, quoting=csv.QUOTE_MINIMAL)
+        writer.writerow(header)
         for row in rows:
             writer.writerow(row)
