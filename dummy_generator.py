@@ -5,9 +5,12 @@
 Dummy csv generator.
 
 Usage:
-  dummy_generator.py [--quantity=QUANTITY] [--delimiter=DELIMITER]
+  dummy_generator [--quantity=QUANTITY] [--delimiter=DELIMITER]
                      [--newline=NEWLINE] [--quotechar=QUOTECHAR] FILE OUTPUT
-  dummy_generator.py [options] FILE OUTPUT
+  dummy_generator [options] FILE OUTPUT
+  dummy_generator --combinations [--delimiter=DELIMITER]
+                     [--newline=NEWLINE] [--quotechar=QUOTECHAR] FILE
+  dummy_generator --combinations [options] FILE
   dummy_generator (-h | --help)
   dummy_generator --version
 
@@ -18,22 +21,30 @@ Arguments:
 Options:
   -h --help                              Show this screen.
   --version                              Show version.
-  -q QUANTITY --quantity=QUANTITY        Rows quantity [default: 100000]
-  -d DELIMITER --delimiter=DELIMITER     Csv delimiter [default: ,]
-  -n NEWLINE --newline=NEWLINE           Csv newline char [default: ]
-  --quotechar=QUOTECHAR                  Csv quotechar [default: "]
+  -c --combinations                      Show combinations quantity for a file.
+  -q QUANTITY --quantity=QUANTITY        Rows quantity [default: 1000000000].
+  -d DELIMITER --delimiter=DELIMITER     Csv delimiter [default: ,].
+  -n NEWLINE --newline=NEWLINE           Csv newline char [default: ].
+  --quotechar=QUOTECHAR                  Csv quotechar [default: "].
 """
 from docopt import docopt
-from csv_utils import generate_csv, write_csv
+from csv_utils import generate_csv, write_csv, get_combinations
 
 
 if __name__ == '__main__':
     ARGUMENTS = docopt(__doc__, version='Dummy Generator 1.0')
+    COMBINATIONS = ARGUMENTS['--combinations']
     DELIMITER = ARGUMENTS['--delimiter']
     NEWLINE = ARGUMENTS['--newline']
     QUANTITY = ARGUMENTS['--quantity']
     QUOTECHAR = ARGUMENTS['--quotechar']
     FILE = ARGUMENTS['FILE']
     OUTPUT = ARGUMENTS['OUTPUT']
-    HEADER, CSV = generate_csv(FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR)
-    write_csv(OUTPUT, DELIMITER, NEWLINE, QUOTECHAR, HEADER, CSV)
+    if COMBINATIONS:
+        COMBINATIONS_QUANTITY = get_combinations(
+            FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR)
+        print(COMBINATIONS_QUANTITY)
+    else:
+        HEADER, CSV = generate_csv(
+            FILE, DELIMITER, NEWLINE, QUANTITY, QUOTECHAR)
+        write_csv(OUTPUT, DELIMITER, NEWLINE, QUOTECHAR, HEADER, CSV)

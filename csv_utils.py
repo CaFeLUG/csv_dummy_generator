@@ -23,15 +23,25 @@ def parse_csv(filename, delimiter=',', quotechar='"', newline=''):
     return header, body
 
 
+def get_combinations(filename, delimiter, newline, quantity, quotechar):
+    """
+        Return combinations quantity for a file
+    """
+    _, rows = parse_csv(filename, delimiter, quotechar, newline)
+    combinations = get_n_random_combinations(rows, quantity)
+    combinations = clean_rows(combinations, rows)
+    return len(combinations)
+
+
 def generate_csv(filename, delimiter, newline, quantity, quotechar):
     """
         Return rows with dummy data generated
     """
     header, rows = parse_csv(filename, delimiter, quotechar, newline)
-    all_combinations = get_n_random_combinations(rows, quantity)
-    final_data = clean_rows(all_combinations, rows)
+    combinations = get_n_random_combinations(rows, quantity)
+    combinations = clean_rows(combinations, rows)
     header, rows = add_new_column(
-        header, final_data, 'email', email_generator)
+        header, combinations, 'email', email_generator)
     return header, rows
 
 
