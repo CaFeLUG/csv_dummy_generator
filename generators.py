@@ -1,6 +1,8 @@
 """
     Dummy csv generator
 """
+import unidecode
+
 from random import randint, choice
 
 
@@ -56,9 +58,12 @@ def email_generator(row):
         Email generator
     """
     [name, lastname, *_] = row
-    return get_random_mail_template().format(
+    template = get_random_mail_template()
+    mail = template.format(
         name=name,
         number=randint(1, 1000),
         lastname=lastname,
         domain=get_random_email_domain()
-    ).lower()
+    )
+    mail_unaccent = unidecode.unidecode(mail.lower())
+    return mail_unaccent
