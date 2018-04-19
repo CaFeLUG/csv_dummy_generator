@@ -1,5 +1,8 @@
 # CSV dummy generator
 
+## Use
+[![asciicast](https://asciinema.org/a/IfqOe0CRNRa5HYR2GEIHScBU4.png)](https://asciinema.org/a/IfqOe0CRNRa5HYR2GEIHScBU4)
+
 ## Description
 Este generador toma un archivo csv y genera un archivo con las combinaciones posibles (evitando las combinaciones iniciales) y agregando un mail calculado a partir de distintas templates.
 
