@@ -18,7 +18,7 @@ Arguments:
 Options:
   -h --help                              Show this screen.
   --version                              Show version.
-  -q QUANTITY --quantity=QUANTITY        Rows quantity [default: None]
+  -q QUANTITY --quantity=QUANTITY        Rows quantity [default: 100000]
   -d DELIMITER --delimiter=DELIMITER     Csv delimiter [default: ,]
   -n NEWLINE --newline=NEWLINE           Csv newline char [default: ]
   --quotechar=QUOTECHAR                  Csv quotechar [default: "]
